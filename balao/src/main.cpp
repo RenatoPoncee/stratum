@@ -4,6 +4,12 @@
 #include "gps.h"
 #include "temperature_sensor.h"
 
+#define LORA_RX 15
+#define LORA_TX 14
+#define LORA_AUX 21
+#define LORA_M0 19
+#define LORA_M1 18
+
 
 #define PINO_DRDY 2
 #define GPS_RX 8
@@ -13,7 +19,7 @@
 void setup() {
   Serial.begin(9600);
   delay(500);
-  setupE220();
+  setupE220(LORA_RX, LORA_TX, LORA_AUX, LORA_M0, LORA_M1);
   setupMagnetometer(PINO_DRDY);
   setupGPS(GPS_RX, GPS_TX);
   setupTemperatureSensors();

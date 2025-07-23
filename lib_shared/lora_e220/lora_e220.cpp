@@ -1,28 +1,27 @@
 #include "lora_e220.h"
 #include "Arduino.h"
 
-#define RXD2 15
-#define TXD2 14
-#define AUX  21
-#define M0   19
-#define M1   18
+static LoRa_E220* e220ttl = nullptr;
 
-LoRa_E220 e220ttl(&Serial2, AUX, M0, M1);
-
-void setupE220() {
-  Serial2.begin(9600, SERIAL_8N1, RXD2, TXD2);
-  e220ttl.begin();
-  e220ttl.setMode(MODE_0_NORMAL);
+void setupE220(int rxPin, int txPin, int auxPin, int m0Pin, int m1Pin) {
+  Serial2.begin(9600, SERIAL_8N1, rxPin, txPin);
+  static LoRa_E220 lora(&Serial2, auxPin, m0Pin, m1Pin);
+  e220ttl = &lora;
+  e220ttl->begin();
+  e220ttl->setMode(MODE_0_NORMAL);
 }
 
 void sendMessage(const String& msg) {
-  ResponseStatus rs = e220ttl.sendBroadcastFixedMessage(23, msg);
+  if (!e220ttl) return;
+  ResponseStatus rs = e220ttl->sendBroadcastFixedMessage(23, msg);
+
   Serial.println(rs.getResponseDescription());
 }
 
 String checkForMessage() {
-  if (e220ttl.available() > 1) {
-    ResponseContainer rc = e220ttl.receiveMessage();
+  if (e220ttl && e220ttl->available() > 1) {
+    ResponseContainer rc = e220ttl->receiveMessage();
+
     if (rc.status.code != 1) {
       Serial.println(rc.status.getResponseDescription());
     } else {
