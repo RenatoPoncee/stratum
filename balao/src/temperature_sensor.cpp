@@ -32,4 +32,5 @@ bool readTemperatures(float &t1, float &t2, bool &heating) {
     heating = (t2 <= 28.0f);
     digitalWrite(RELAY_PIN, heating ? HIGH : LOW);
     return true;
+
 }

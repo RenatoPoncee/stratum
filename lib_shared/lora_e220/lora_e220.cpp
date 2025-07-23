@@ -14,12 +14,14 @@ void setupE220(int rxPin, int txPin, int auxPin, int m0Pin, int m1Pin) {
 void sendMessage(const String& msg) {
   if (!e220ttl) return;
   ResponseStatus rs = e220ttl->sendBroadcastFixedMessage(23, msg);
+
   Serial.println(rs.getResponseDescription());
 }
 
 String checkForMessage() {
   if (e220ttl && e220ttl->available() > 1) {
     ResponseContainer rc = e220ttl->receiveMessage();
+
     if (rc.status.code != 1) {
       Serial.println(rc.status.getResponseDescription());
     } else {

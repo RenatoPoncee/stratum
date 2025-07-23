@@ -10,6 +10,7 @@
 #define LORA_M0 19
 #define LORA_M1 18
 
+
 #define PINO_DRDY 2
 #define GPS_RX 8
 #define GPS_TX 9
@@ -22,6 +23,7 @@ void setup() {
   setupMagnetometer(PINO_DRDY);
   setupGPS(GPS_RX, GPS_TX);
   setupTemperatureSensors();
+
   sendMessage("Balloon ready");
 }
 
@@ -30,6 +32,7 @@ void loop() {
   float lat, lon;
   float temp1, temp2;
   bool heating;
+
   bool sent = false;
 
   if (readMagnetometer(azimute)) {
@@ -51,6 +54,7 @@ void loop() {
     sendMessage(msg);
     Serial.println(msg);
     sent = true;
+
   }
 
   if (Serial.available()) {

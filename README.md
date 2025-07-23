@@ -15,10 +15,12 @@ Both projects share a common library under `lib_shared` that wraps the
 LoRa E220 driver. The pins used by each module are defined at the top of
 `main.cpp` in each project so they can be easily adjusted.
 
+
 Build either project with PlatformIO, for example:
 
 ```bash
 pio run -d balao
 pio run -d estacao_base
 ```
+
 
