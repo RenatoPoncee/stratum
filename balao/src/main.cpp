@@ -2,6 +2,8 @@
 #include "lora_e220.h"
 #include "magnetometer.h"
 #include "gps.h"
+#include "temperature_sensor.h"
+
 
 #define PINO_DRDY 2
 #define GPS_RX 8
@@ -14,6 +16,7 @@ void setup() {
   setupE220();
   setupMagnetometer(PINO_DRDY);
   setupGPS(GPS_RX, GPS_TX);
+  setupTemperatureSensors();
 
   sendMessage("Balloon ready");
 }
@@ -21,6 +24,9 @@ void setup() {
 void loop() {
   float azimute;
   float lat, lon;
+  float temp1, temp2;
+  bool heating;
+
   bool sent = false;
 
   if (readMagnetometer(azimute)) {
@@ -32,6 +38,13 @@ void loop() {
 
   if (readGPS(lat, lon)) {
     String msg = "lat=" + String(lat, 6) + ",lon=" + String(lon, 6);
+    sendMessage(msg);
+    Serial.println(msg);
+    sent = true;
+  }
+
+  if (readTemperatures(temp1, temp2, heating)) {
+    String msg = "t1=" + String(temp1, 2) + ",t2=" + String(temp2, 2) + ",heat=" + String(heating ? 1 : 0);
     sendMessage(msg);
     Serial.println(msg);
     sent = true;

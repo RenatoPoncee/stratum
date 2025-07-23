@@ -1,4 +1,6 @@
 #pragma once
+#include <Arduino.h>
 
-void setupTemperatureSensor();
-float readTemperature();
+void setupTemperatureSensors();
+bool readTemperatures(float &t1, float &t2, bool &heating);
+
