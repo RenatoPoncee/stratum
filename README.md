@@ -16,4 +16,3 @@ Build either project with PlatformIO, for example:
 pio run -d balao
 pio run -d estacao_base
 ```
-
