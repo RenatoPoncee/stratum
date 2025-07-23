@@ -7,6 +7,7 @@ This repository contains two PlatformIO projects that communicate using LoRa E22
   separate modules under `balao/src` (e.g. `magnetometer.cpp`, `gps.cpp`) and the
   main code periodically transmits the magnetometer azimuth and GPS coordinates.
 
+
 Both projects share a common library under `lib_shared` that wraps the
 LoRa E220 driver.
 
@@ -16,4 +17,3 @@ Build either project with PlatformIO, for example:
 pio run -d balao
 pio run -d estacao_base
 ```
-

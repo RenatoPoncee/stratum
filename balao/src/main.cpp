@@ -14,6 +14,7 @@ void setup() {
   setupE220();
   setupMagnetometer(PINO_DRDY);
   setupGPS(GPS_RX, GPS_TX);
+
   sendMessage("Balloon ready");
 }
 
@@ -34,6 +35,7 @@ void loop() {
     sendMessage(msg);
     Serial.println(msg);
     sent = true;
+
   }
 
   if (Serial.available()) {
