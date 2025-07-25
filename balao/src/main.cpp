@@ -16,6 +16,31 @@
 #define GPS_TX 9
 #define INTERVALO 120000UL
 
+static void sendHeartbeatIfNeeded() {
+  static unsigned long last = 0;
+  static unsigned long counter = 0;
+  unsigned long now = millis();
+  if (now - last >= 5000UL) {
+    last = now;
+    counter++;
+    unsigned long secs = now / 1000UL;
+    unsigned int h = secs / 3600UL;
+    unsigned int m = (secs % 3600UL) / 60UL;
+    unsigned int s = secs % 60UL;
+    char buf[32];
+    sprintf(buf, "heartbeat_%lu_t=%02u:%02u:%02u", counter, h, m, s);
+    sendMessage(String(buf));
+  }
+}
+
+static void delayWithHeartbeat(unsigned long ms) {
+  unsigned long start = millis();
+  while (millis() - start < ms) {
+    sendHeartbeatIfNeeded();
+    delay(100);
+  }
+}
+
 void setup() {
   Serial.begin(9600);
   delay(500);
@@ -32,6 +57,8 @@ void loop() {
   float lat, lon;
   float temp1, temp2;
   bool heating;
+
+  sendHeartbeatIfNeeded();
 
   bool sent = false;
 
@@ -63,8 +90,8 @@ void loop() {
   }
 
   if (sent) {
-    delay(INTERVALO);
+    delayWithHeartbeat(INTERVALO);
   } else {
-    delay(1000);
+    delayWithHeartbeat(1000);
   }
 }
