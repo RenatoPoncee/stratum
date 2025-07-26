@@ -11,8 +11,8 @@ This repository contains two PlatformIO projects that communicate using LoRa E22
   the second sensor reports 28 °C or below, indicating that the interior is being
   heated.
 
-Both projects share a common library under `lib_shared` that wraps the
-LoRa E220 driver. The pins used by each module are defined at the top of
+Each project now contains a small wrapper for the LoRa E220 driver inside
+its own `src` folder. The pins used by each module are defined at the top of
 `main.cpp` in each project so they can be easily adjusted.
 
 
