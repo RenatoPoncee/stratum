@@ -1,7 +1,7 @@
 #include "lora_e220.h"
 #include "Arduino.h"
 
-LoRa_E220* e220ttl = nullptr;
+static LoRa_E220* e220ttl = nullptr;
 
 void setupE220(HardwareSerial& serial, int rxPin, int txPin, int auxPin,
                int m0Pin, int m1Pin) {
