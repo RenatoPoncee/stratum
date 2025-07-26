@@ -44,7 +44,7 @@ static void delayWithHeartbeat(unsigned long ms) {
 void setup() {
   Serial.begin(9600);
   delay(500);
-  setupE220(LORA_RX, LORA_TX, LORA_AUX, LORA_M0, LORA_M1);
+  setupE220(Serial2, LORA_RX, LORA_TX, LORA_AUX, LORA_M0, LORA_M1);
   setupMagnetometer(PINO_DRDY);
   setupGPS(GPS_RX, GPS_TX);
   setupTemperatureSensors();

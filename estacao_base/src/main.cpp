@@ -10,7 +10,7 @@
 void setup() {
   Serial.begin(9600);
   delay(500);
-  setupE220(LORA_RX, LORA_TX, LORA_AUX, LORA_M0, LORA_M1);
+  setupE220(Serial2, LORA_RX, LORA_TX, LORA_AUX, LORA_M0, LORA_M1);
 
   Serial.println("Waiting for messages...");
 }
