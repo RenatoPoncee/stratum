@@ -24,3 +24,14 @@ pio run -d estacao_base
 ```
 
 
+
+## Simple Serial Examples
+
+Additional minimal projects show how to use the E22 modules without the `LoRa_E220` library. The directories `balao_simple` and `estacao_base_simple` configure Serial2 manually and control the mode pins directly.
+
+Build them with PlatformIO just like the main projects:
+
+```bash
+pio run -d balao_simple
+pio run -d estacao_base_simple
+```
